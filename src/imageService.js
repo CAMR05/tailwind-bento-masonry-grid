@@ -1,6 +1,7 @@
 // https://unsplash.com/es/%C3%BAnete
 const API_KEY = "TI2pR_6B1MiQMX1gbmj6hQmOQOZ03gNbUMaYjMc_kFI"
-export class ImageService {
+
+export default class ImageService {
   constructor() {
     this.BASE_URL = 'https://api.unsplash.com';
     this.imagesPerPage = 30;
@@ -21,101 +22,14 @@ export class ImageService {
       }
 
       const data = await response.json();
-      console.log("data", data);
-      return data.results;
-    } catch (error) {
-      console.error('Error:', error);
-      throw error;
+            return {
+                results: data.results,
+                total: data.total,
+                totalPages: Math.ceil(data.total / this.imagesPerPage)
+            };
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
     }
-  }
 }
-
-export class ImageGallery {
-  constructor(containerId) {
-    this.container = document.getElementById(containerId);
-    this.imageService = new ImageService();
-    this.currentPage = 1;
-    this.currentQuery = '';
-    this.isLoading = false;
-    this.observer = null;
-    this.setupIntersectionObserver();
-  }
-
-  setupIntersectionObserver() {
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !this.isLoading) {
-            this.loadMoreImages();
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-  }
-
-  async searchImages(query) {
-    this.currentQuery = query;
-    this.currentPage = 1;
-    this.clearGallery();
-    await this.loadImages();
-  }
-
-  clearGallery() {
-    this.container.innerHTML = '';
-  }
-
-  async loadImages() {
-    try {
-      this.isLoading = true;
-      const images = await this.imageService.searchImages(this.currentQuery, this.currentPage);
-      
-      images.forEach(image => {
-        const imageElement = this.createImageElement(image);
-        this.container.appendChild(imageElement);
-      });
-
-      this.currentPage++;
-    } catch (error) {
-      console.error('Error al cargar imágenes:', error);
-      throw error;
-    } finally {
-      this.isLoading = false;
-    }
-  }
-
-  createImageElement(image) {
-    const div = document.createElement('div');
-    div.className = 'box';
-    
-    const img = document.createElement('img');
-    img.src = image.urls.regular;
-    img.alt = image.alt_description || 'Imagen de Unsplash';
-    img.loading = 'lazy';
-    
-    // Determinar las clases según las dimensiones
-    const width = image.width;
-    const height = image.height;
-    const ratio = width / height;
-
-    if (ratio > 1.5) {
-      // Imagen landscape (más ancha que alta)
-      div.classList.add('box-landscape');
-    } else if (ratio < 0.75) {
-      // Imagen portrait (más alta que ancha)
-      div.classList.add('box-portrait');
-    } else if (width > 800 && height > 800) {
-      // Imagen grande (doble)
-      div.classList.add('box-double');
-    }
-    
-    div.appendChild(img);
-    return div;
-  }
-
-  async loadMoreImages() {
-    if (!this.isLoading) {
-      await this.loadImages();
-    }
-  }
-} 

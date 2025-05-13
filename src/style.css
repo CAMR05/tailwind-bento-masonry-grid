@@ -15,6 +15,9 @@
     h1, h2, h3, h4, h5, h6 {
         font-family: var(--default-font-family);
     }
+    input {
+        @apply w-full !px-4 !py-2 !rounded-lg !border !border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500;
+    }
 }
 
 @layer components {
@@ -44,5 +47,11 @@
 }
 
 @layer utilities {
+    .b-lazy {
+        @apply opacity-0 duration-500 ease-in-out scale-150 transition-all;
+    }
     
+    .b-lazy.loaded {
+        @apply scale-100 opacity-100;
+    }
 }

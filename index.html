@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite App - Gallery</title>
+  <link rel="stylesheet" href="/src/style.css">
 </head>
 
 <body class="bg-blue-950">
@@ -16,7 +17,6 @@
           <input 
             type="text" 
             id="searchInput" 
-            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Buscar imágenes..."
             required
             minlength="3"
@@ -64,6 +64,10 @@
         <div class="box box-double">
           <img src="https://images.alphacoders.com/105/1057752.jpg" alt="Random Img"/>
         </div>
+    </div>
+
+    <div id="pagination" class="w-full">
+
     </div>
   </main>
   <script type="module" src="/src/main.js"></script>
