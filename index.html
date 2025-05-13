@@ -10,7 +10,30 @@
 <body class="bg-blue-950">
 
   <main class="container mx-auto p-4">
-    <div class="grid grid-cols-2 md:grid-cols-4 md:grid-rows-4 lg:grid-cols-6 lg:grid-rows-6 grid-flow-dense auto-rows-fr auto-cols-fr">
+    <form id="searchForm" class="mb-8">
+      <div class="flex gap-4 max-w-2xl mx-auto">
+        <div class="flex-1">
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Buscar imágenes..."
+            required
+            minlength="3"
+            maxlength="50"
+          />
+          <div id="searchError" class="text-red-500 text-sm mt-1 hidden"></div>
+        </div>
+        <button 
+          type="submit"
+          class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Buscar
+        </button>
+      </div>
+    </form>
+
+    <div id="grid-container" class="grid grid-cols-2 md:grid-cols-4 md:grid-rows-4 lg:grid-cols-6 lg:grid-rows-6 grid-flow-dense auto-rows-fr auto-cols-fr">
         <div class="box">
           <img src="https://imgs.search.brave.com/1EpK0xQmN9nWuxAK8bjYvwA5wh3MdyCWcCor-z9R7rA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Y2xhc3NpY3BvcG1h/Zy5jb20vd3AtY29u/dGVudC91cGxvYWRz/LzIwMjUvMDUvQkFf/Um9sbF9BbGJ1bV8z/MDAweDMwMDAtNDE0/eDQxNC5qcGVn" alt="Random Img"/>
         </div>
